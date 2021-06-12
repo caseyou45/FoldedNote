@@ -197,6 +197,15 @@ app.post("/api/note", async (req, res) => {
   res.json(savedNote);
 });
 
+// Exprees will serve up production assets
+app.use(express.static("build"));
+
+// Express serve up index.html file if it doesn't recognize route
+const path = require("path");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

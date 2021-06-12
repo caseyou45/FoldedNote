@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setStateNote } from "../../reducers/noteReducer";
 import { useSelector } from "react-redux";
@@ -10,8 +9,6 @@ const ChangePassword = () => {
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [message, setMessage] = useState("");
-
-  const location = useLocation();
 
   const [passwordSt, setpasswordSt] = useState({
     length: false,

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import EnablePassword from "./EnablePassword";
 import DisablePassword from "./DisablePassword";
 
 import ChangePassword from "./ChangePassword";
 
 import "./Settings.scss";
-import { useDispatch } from "react-redux";
-import { setStateNote } from "../../reducers/noteReducer";
 import { useSelector } from "react-redux";
 
 const SettingsModal = ({ setShowSettingsModal, showSettingsModal }) => {
-  const dispatch = useDispatch();
   const [showChange, setShowChange] = useState(true);
   const [noteProtected, setNoteProtected] = useState(false);
 
