@@ -1,0 +1,202 @@
+$font: #073b4c;
+$font-dim: #073b4cc2;
+$white: #fff;
+
+$highlight-red: #ef476f;
+$highlight-blue: #118ab2;
+$highlight-green: #06d6a0;
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal-settings {
+  background-color: $white;
+  border-radius: 13px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  color: $font;
+  margin: 4rem auto;
+  max-width: 16rem;
+  padding: 2rem;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+
+  h5 {
+    color: $highlight-blue;
+    font-weight: lighter;
+    line-height: 1rem;
+    text-align: center;
+  }
+
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  form {
+    p {
+      color: #495057;
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    label {
+      margin: 0.5rem 0;
+    }
+
+    i {
+      font-size: 1rem;
+      font-weight: bolder;
+      margin-right: 0.5rem;
+    }
+
+    input {
+      border: 2px solid $white;
+      border-bottom: 2px solid $highlight-blue;
+      border-radius: 3px;
+      padding: 0.3rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    input:focus {
+      border: 2px solid $highlight-blue;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    button {
+      background-image: linear-gradient(to right, $highlight-blue, $highlight-green);
+      border: none;
+      border-radius: 3px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      color: $white;
+      font-size: 1rem;
+      height: 2rem;
+      margin: 2rem 0;
+    }
+
+    button:hover,
+    button:active {
+      background-image: linear-gradient(to right, #118ab2be, #06d69ebe);
+    }
+  }
+
+  .cancel {
+    background-color: $white;
+    border: none;
+    color: $highlight-blue;
+    font-size: 14px;
+  }
+
+  .cancel:hover,
+  .cancel:active {
+    color: #118ab2be;
+  }
+}
+
+.message {
+  color: $highlight-red;
+  height: 1rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.enable-password {
+  display: flex;
+  flex-direction: column;
+}
+
+.disable-password {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    border-bottom: 2px solid #ef476ec4;
+  }
+
+  input:focus {
+    border: 2px solid #ef476ec4;
+  }
+}
+.change-password {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div:last-of-type {
+    margin-top: 2rem;
+
+    label {
+      color: $highlight-blue;
+    }
+    input {
+      border-bottom: 2px solid $highlight-green;
+    }
+
+    input:focus {
+      border: 2px solid $highlight-green;
+    }
+  }
+}
+
+.delete-note {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin: 0;
+  }
+}
+
+.delete-note form {
+  button {
+    margin: 0;
+    background-color: $highlight-blue;
+  }
+}
+
+.selection-settings {
+  display: flex;
+  flex-direction: row;
+
+  button {
+    background-color: $font;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    color: $white;
+    font-size: 12px;
+    font-variant: small-caps;
+    height: 2rem;
+  }
+}
+
+.selection-settings button:first-child {
+  border-radius: 3px 0 0 3px;
+  border-right: 0.25px solid #fff;
+}
+.selection-settings button:last-child {
+  border-radius: 0 3px 3px 0;
+  border-left: 0.25px solid #fff;
+}
+
+@media only screen and (max-width: 900px) {
+  .showMore {
+    display: block;
+  }
+
+  .main {
+    padding: 2rem 1rem;
+  }
+}

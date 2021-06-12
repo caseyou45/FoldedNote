@@ -1,0 +1,173 @@
+$font: #073b4c;
+$font-dim: #073b4cc2;
+$white: #fff;
+
+$highlight-red: #ef476f;
+$highlight-blue: #118ab2;
+$highlight-green: #06d6a0;
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.dashboard {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+}
+
+.show-more {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  background-color: $white;
+  border: none;
+  border-radius: 3px;
+  display: none;
+  font-size: 15px;
+  height: 2rem;
+  margin: 1rem auto;
+  margin-top: 2rem;
+  width: 6rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+
+  min-height: 3rem;
+
+  span {
+    margin-right: 1rem;
+  }
+}
+
+.info button:first-of-type {
+  background-color: $white;
+  color: $highlight-blue;
+}
+
+.info button:last-child {
+  background-color: $white;
+  color: $highlight-red;
+}
+
+.delete button:first-of-type {
+  background-color: $highlight-red;
+  color: $white;
+}
+
+.delete button:last-child {
+  background-color: $white;
+  color: $highlight-red;
+}
+
+button {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 3px;
+  height: 2rem;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.buttons-display {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: flex-start;
+}
+
+.truncate {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.main {
+  display: block;
+  height: 80%;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.DraftEditor-root {
+  display: block;
+  overflow-y: scroll;
+  margin: 0 auto;
+  min-width: 90%;
+}
+
+.style-buttons {
+  border: 2px solid $white;
+  border-style: solid;
+  border-width: 2px;
+  cursor: pointer;
+  font-size: 15px;
+  font-variant: small-caps;
+  padding: 1rem;
+}
+
+.style-buttons:hover,
+.style-buttons:hover {
+  color: $highlight-red;
+}
+
+.selected-button {
+  color: $highlight-red;
+}
+
+.delete-message {
+  background-color: $highlight-red;
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: block;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+  width: 18rem;
+}
+
+.delete-message button {
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  color: $highlight-red;
+  font-variant: small-caps;
+  height: 2rem;
+  margin: 0.5rem auto 1rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+  .show-more {
+    display: block;
+  }
+
+  .main {
+    padding: 2rem 1rem;
+  }
+
+  .info {
+    div:first-child {
+      display: flex;
+      flex-direction: column;
+
+      span:first-child {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
