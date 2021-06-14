@@ -27,6 +27,7 @@ const Note = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const note = useSelector((state) => state.note);
+
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -73,6 +74,10 @@ const Note = () => {
     );
   };
 
+  // Checks for note in redux.
+  // If blank note is found, it is created.
+  //  Otherwies, notes with existing content are rendered.
+
   useEffect(() => {
     if (note) {
       if (note.note !== "") {
@@ -84,6 +89,7 @@ const Note = () => {
     }
   }, [note]);
 
+  //  Handles the timing of auto-save
   useEffect(() => {
     if (saving) {
       const timer = setInterval(() => {
@@ -101,6 +107,7 @@ const Note = () => {
     }
   });
 
+  // Handles saving process
   const triggerSave = async () => {
     if (!deleteSuccess) {
       try {

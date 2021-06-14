@@ -45,7 +45,7 @@ const ChangePassword = () => {
   };
 
   const passwordStrength = (pwd) => {
-    // LengthCheck
+    // Length Check
     if (pwd.length >= 8 && passwordSt.length === false) {
       setpasswordSt((prevState) => ({
         ...prevState,

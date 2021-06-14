@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setStateNote } from "../../reducers/noteReducer";
 import { useSelector } from "react-redux";
@@ -13,6 +12,7 @@ const DisablePassword = ({ setShowSettingsModal, setNoteProtected }) => {
 
   const note = useSelector((state) => state.note);
 
+  // Disables password, shows message and triggers modal close.
   const disablePassword = async () => {
     try {
       let returnedNote = await axios.post("/api/note/password/disable", {

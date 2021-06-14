@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setStateNote } from "../../reducers/noteReducer";
 
+//  Password entry modal if a password is set
 const PasswordEntry = ({ setNeedsAuth }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");

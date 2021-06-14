@@ -18,6 +18,8 @@ const EnablePassword = ({ setNoteProtected, setShowSettingsModal }) => {
 
   const note = useSelector((state) => state.note);
 
+  // Creates password, shows message and triggers modal close.
+
   const enablePassword = async (password) => {
     note.password = password;
     try {
@@ -37,7 +39,7 @@ const EnablePassword = ({ setNoteProtected, setShowSettingsModal }) => {
     }
   };
   const passwordStrength = (pwd) => {
-    // LengthCheck
+    // Length Check
     if (pwd.length >= 8 && passwordSt.length === false) {
       setpasswordSt((prevState) => ({
         ...prevState,
