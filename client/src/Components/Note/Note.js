@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import DeleteMessage from "./DeleteMessage";
@@ -27,6 +27,7 @@ const Note = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const note = useSelector((state) => state.note);
+  const editorRef = useRef(null);
 
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -83,8 +84,10 @@ const Note = () => {
       if (note.note !== "") {
         const content = convertFromRaw(JSON.parse(note.note));
         setEditorState(EditorState.createWithContent(content));
+        editorRef.current.focus();
       } else {
         setEditorState(EditorState.createEmpty());
+        editorRef.current.focus();
       }
     }
   }, [note]);
@@ -226,6 +229,7 @@ const Note = () => {
       <div className="main" onKeyDown={(e) => trackKeyDown(e)}>
         {!deleteSuccess ? (
           <Editor
+            ref={editorRef}
             editorState={editorState}
             onChange={setEditorState}
             handleKeyCommand={handleKeyCommand}
