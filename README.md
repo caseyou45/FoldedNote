@@ -1,5 +1,5 @@
 # FoldedNote
-Here you’ll find the Node.js backend and React fronted for Folded Note. 
+Here you’ll find the Node.js backend and React frontend for Folded Note. 
 
 This website uses Draft.js to allow users to create rich text notes. When a user visits the website, a unique identifier is created and then appended to the url. The note is automatically saved in MongoDB. The note can be accessed again on any device with that url.  
 
