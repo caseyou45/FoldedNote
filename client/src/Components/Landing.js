@@ -9,17 +9,16 @@ import PasswordEntry from "./PasswordEntry/PasswordEntry";
 const Landing = () => {
   const [needsAuth, setNeedsAuth] = useState(false);
   const [load, setLoad] = useState(false);
-  const [deleted, setDeleted] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
   const makeIdentifier = (length) => {
-    let result = [];
-    let characters =
+    const result = [];
+    const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let charactersLength = characters.length;
+    const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
       result.push(
         characters.charAt(Math.floor(Math.random() * charactersLength))
@@ -30,7 +29,7 @@ const Landing = () => {
 
   const checkURLForUserInput = () => {
     // Checks if user has inputed a full url. If so, it's validated. If not, a new note is craeted.
-    let input = location.pathname.split("/").pop();
+    const input = location.pathname.split("/").pop();
     if (input) {
       if (input === "delete") {
       } else {
@@ -41,55 +40,39 @@ const Landing = () => {
     }
   };
 
-  const fetchNote = async (identifier) => {
-    // Checks and possibly gets note saved in Mongo
-    try {
-      let result = await axios.get(`/api/note/${identifier}`);
-      return result.data;
-    } catch (error) {
-      return error;
-    }
-  };
-
   const loadExisitngNote = async (identifier) => {
     // Attempts to load user's input. If validation fails, a new note is created.
     try {
-      let result = await axios.get(`/api/note/${identifier}`);
-      if (result.data === "none") {
-        makeNewNote();
-      } else {
-        dispatch(setStateNote(result.data));
-        setLoad(true);
-        history.push(`/${identifier}`);
-      }
+      const result = await axios.get(`/api/note/${identifier}`);
+      dispatch(setStateNote(result.data));
+      setLoad(true);
+      history.push(`/${identifier}`);
     } catch (error) {
       if (error.response.status) {
-        if (error.response.status === 403) {
+        //Note has been found but it is password protected
+        if (error.response.status === 401) {
           setNeedsAuth(true);
           setLoad(true);
+          //There is no note with that URL, so make a new one
+        } else if (error.response.status === 404) {
+          makeNewNote();
         }
       }
     }
   };
 
   const makeNewNote = async () => {
-    // Makes a new note with random identifier. If random/new identifier is already in use, process
-    // is repeated.
+    // Makes a new note with random identifier
     try {
-      let randomIdentifier = makeIdentifier(10);
+      const randomIdentifier = makeIdentifier(10);
 
-      let result = await fetchNote(randomIdentifier);
+      const result = await axios.post(`/api/note`, {
+        identifier: randomIdentifier,
+      });
 
-      if (result !== "none") {
-        makeNewNote();
-      } else {
-        let result = await axios.post(`/api/note`, {
-          identifier: randomIdentifier,
-        });
-        dispatch(setStateNote(result.data));
-        setLoad(true);
-        history.push(`/${randomIdentifier}`);
-      }
+      dispatch(setStateNote(result.data));
+      setLoad(true);
+      history.push(`/${randomIdentifier}`);
     } catch (error) {
       console.log(error);
     }

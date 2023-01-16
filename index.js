@@ -12,10 +12,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
+const options = { returnNewDocument: true };
+
 //Enable Password Protection
 app.post("/api/note/password/enable", async (req, res) => {
   const query = { _id: req.body._id };
-  const options = { returnNewDocument: true };
   bcrypt.hash(
     req.body.password,
     Number(process.env.HASH_ROUNDS),
@@ -27,8 +28,7 @@ app.post("/api/note/password/enable", async (req, res) => {
             password: hash,
           },
         };
-        const result = await Note.findOneAndUpdate(query, updateDoc, options);
-        console.log(result);
+        const result = await Note.updateOne(query, updateDoc, options);
         if (result) res.json(result);
       } catch (error) {
         next(error);
@@ -46,7 +46,6 @@ app.post("/api/note/password/change", async (req, res) => {
       bcrypt.compare(currentPassword, note.password).then((result) => {
         if (result) {
           const query = { identifier: identifier };
-          const options = { returnNewDocument: true };
           // Hash new password
           bcrypt.hash(
             newPassword,
@@ -60,11 +59,7 @@ app.post("/api/note/password/change", async (req, res) => {
                   },
                 };
                 // Save new note with new password
-                const result = await Note.findOneAndUpdate(
-                  query,
-                  updateDoc,
-                  options
-                );
+                const result = await Note.updateOne(query, updateDoc, options);
                 if (result) res.json(result);
               } catch (error) {
                 next(error);
@@ -92,7 +87,6 @@ app.post("/api/note/password/disable", async (req, res) => {
       bcrypt.compare(password, note.password, async (err, result) => {
         if (result) {
           const query = { identifier: identifier };
-          const options = { returnNewDocument: true };
           const updateDoc = {
             $set: {
               protected: false,
@@ -100,7 +94,7 @@ app.post("/api/note/password/disable", async (req, res) => {
             },
           };
           // Save new note with new password
-          const updatedNote = await Note.findOneAndUpdate(
+          const updatedNote = await Note.updateOne(
             query,
             updateDoc,
             options,
@@ -126,7 +120,7 @@ app.post("/api/note/password/disable", async (req, res) => {
 
 app.post("/api/note/save", async (req, res) => {
   const filter = { _id: req.body._id };
-  const options = { upsert: false };
+  const options = { returnNewDocument: true, upsert: false };
   const updateDoc = {
     $set: {
       note: req.body.note,
@@ -146,20 +140,21 @@ app.post("/api/note/delete", async (req, res) => {
   res.json(result);
 });
 
-// Find exisitng Note and return wanring if Password Protected
-
+// Find exisitng Note and return warning if Password Protected
 app.get("/api/note/:id", (req, res) => {
   Note.findOne({ identifier: req.params.id }, (err, note) => {
     if (note) {
       if (note.protected) {
-        res.status(403).send({
+        res.status(401).send({
           error: `Password Protected`,
         });
       } else {
         res.json(note);
       }
     } else {
-      res.json("none");
+      res.status(404).send({
+        error: `No Note Found`,
+      });
     }
   });
 });
