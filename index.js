@@ -28,7 +28,7 @@ app.post("/api/note/password/enable", async (req, res) => {
             password: hash,
           },
         };
-        const result = await Note.updateOne(query, updateDoc, options);
+        const result = await Note.findOneAndUpdate(query, updateDoc, options);
         if (result) res.json(result);
       } catch (error) {
         next(error);
@@ -59,7 +59,11 @@ app.post("/api/note/password/change", async (req, res) => {
                   },
                 };
                 // Save new note with new password
-                const result = await Note.updateOne(query, updateDoc, options);
+                const result = await Note.findOneAndUpdate(
+                  query,
+                  updateDoc,
+                  options
+                );
                 if (result) res.json(result);
               } catch (error) {
                 next(error);
@@ -94,7 +98,7 @@ app.post("/api/note/password/disable", async (req, res) => {
             },
           };
           // Save new note with new password
-          const updatedNote = await Note.updateOne(
+          const updatedNote = await Note.findOneAndUpdate(
             query,
             updateDoc,
             options,
@@ -126,7 +130,7 @@ app.post("/api/note/save", async (req, res) => {
       note: req.body.note,
     },
   };
-  const result = await Note.updateOne(filter, updateDoc, options);
+  const result = await Note.findOneAndUpdate(filter, updateDoc, options);
   if (result) res.json(result);
 });
 
